@@ -47,13 +47,13 @@ private:
 
 /*Composite of Glyph to store a two dimentional vector of Glyph* */
 class Spreadsheet : public Glyph {
-	
-	/*To insert num empty elements before adding data at the end of the vector*/
+    
+    /*To insert num empty elements before adding data at the end of the vector*/
     void InsertAfterEmptyElem(vector<Glyph*> &vec, unsigned int num, Glyph *data) {
         vec.insert(vec.end(), num, new Empty());
         vec.insert(vec.end(), data);
     }
-	/*To insert num of empty vectors before adding a vector with data at the end of it*/
+    /*To insert num of empty vectors before adding a vector with data at the end of it*/
     void InsertAfterEmptyVector(vector<vector<Glyph*> > &vec_vec, unsigned int num, unsigned int col, Glyph *data) {
         vec_vec.insert(vec_vec.end(), num, vector<Glyph*>());
         vector<Glyph*> temp(col);
@@ -66,13 +66,13 @@ public:
         : sheet_(rows, vector<Glyph*>(cols)) {
     }
 
-	/*To add Glyph to the spreadsheet at desired row and col. Note that the row and col are not zero indexed.*/
+    /*To add Glyph to the spreadsheet at desired row and col. Note that the row and col are not zero indexed.*/
     void Update(const unsigned int row, const unsigned int col, Glyph *data) {
-		/*Reject 0 index*/
+        /*Reject 0 index*/
         if (!row || !col)
             return;
-		
-		/*Find if the row is already present*/
+        
+        /*Find if the row is already present*/
         bool row_found = false;
         unsigned int row_number = 0;
         for (auto &elem : sheet_) {
@@ -83,7 +83,7 @@ public:
             }
         }
         if (row_found) {
-			/*Find if the col is already present*/
+            /*Find if the col is already present*/
             unsigned int col_number = 0;
             for (auto &elem : sheet_[row - 1]) {
                 col_number++;
@@ -93,19 +93,19 @@ public:
                     return;
                 }
             }
-			/*If col is not present then add col - col_number - 1 empty glyphs before adding data*/
+            /*If col is not present then add col - col_number - 1 empty glyphs before adding data*/
             InsertAfterEmptyElem(sheet_[row - 1], (col - col_number - 1), data);
             return;
         }
         else {
-			/*If row not found then add (row - row_number - 1) empty rows and add data at col of last row*/
+            /*If row not found then add (row - row_number - 1) empty rows and add data at col of last row*/
             InsertAfterEmptyVector(sheet_, (row - row_number - 1), col, data);
             return;
         }
 
     }
-	/*Print the spreadsheet with every cell surrounded by '|'. They are printed with 
-	the bars column aligned*/
+    /*Print the spreadsheet with every cell surrounded by '|'. They are printed with 
+    the bars column aligned*/
     void Print(void) const {
         for (const auto &row : sheet_) {
             cout << "|";
@@ -123,7 +123,7 @@ public:
         }
     }
 
-	/*Clear the stored data at once.*/
+    /*Clear the stored data at once.*/
     void Clear(void) {
         for (auto &row : sheet_) {
             for (auto &col : row) {
@@ -138,7 +138,7 @@ private:
 };
 
 int main(int argc, char *argv[]) {
-	/*Add data at random row/col position and print at the end.*/
+    /*Add data at random row/col position and print at the end.*/
     auto spread_sheet = Spreadsheet(4, 3);
     spread_sheet.Update(1, 1, new Text("bob"));
     spread_sheet.Update(1, 2, new Number(10));
@@ -151,7 +151,7 @@ int main(int argc, char *argv[]) {
     spread_sheet.Print();
     
     spread_sheet.Clear();
-	/*Wait for user input before terminate.*/
+    /*Wait for user input before terminate.*/
     system("pause");
-	exit(0);
+    exit(0);
 }
