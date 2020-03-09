@@ -1,5 +1,5 @@
 # Spread Sheet
-##Problem statement
+## Problem statement
 Design a spreadsheet type data structure to store different types of data such as text, number, and print it on the console with grids clearly showing cells in the spreadsheet.
 
 ## The solution
